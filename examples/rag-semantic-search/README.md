@@ -71,54 +71,54 @@ This project implements a production-ready RAG system for AI/ML knowledge base q
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         USER INTERFACE                           │
-│                   (Streamlit Web Application)                    │
+│                         USER INTERFACE                          │
+│                   (Streamlit Web Application)                   │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      QUERY PROCESSING                            │
-│  ┌──────────────────────┐    ┌─────────────────────────────┐   │
-│  │  Query Encoder       │    │  BM25 Tokenizer             │   │
-│  │  (all-MiniLM-L6-v2)  │    │  (Keyword Extraction)       │   │
-│  │  → 384D Vector       │    │  → Token Frequencies        │   │
-│  └──────────────────────┘    └─────────────────────────────┘   │
+│                      QUERY PROCESSING                           │
+│  ┌──────────────────────┐    ┌─────────────────────────────┐    │
+│  │  Query Encoder       │    │  BM25 Tokenizer             │    │
+│  │  (all-MiniLM-L6-v2)  │    │  (Keyword Extraction)       │    │
+│  │  → 384D Vector       │    │  → Token Frequencies        │    │
+│  └──────────────────────┘    └─────────────────────────────┘    │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    PARALLEL RETRIEVAL                            │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  VECTOR SEARCH (Endee)      BM25 KEYWORD SEARCH         │   │
-│  │  • Cosine similarity        • Term frequency matching   │   │
-│  │  • HNSW indexing            • Inverse doc frequency     │   │
-│  │  • Fast approximate NN      • Full-text relevance      │   │
-│  └─────────────────────────────────────────────────────────┘   │
+│                    PARALLEL RETRIEVAL                           │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  VECTOR SEARCH (Endee)      BM25 KEYWORD SEARCH         │    │
+│  │  • Cosine similarity        • Term frequency matching   │    │
+│  │  • HNSW indexing            • Inverse doc frequency     │    │
+│  │  • Fast approximate NN      • Full-text relevance       │    │
+│  └─────────────────────────────────────────────────────────┘    │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      HYBRID FUSION                               │
+│                      HYBRID FUSION                              │
 │      Weighted Combination: 70% Vector + 30% BM25                │
 │      Normalized Score Fusion → Hybrid Ranking                   │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   NEURAL RE-RANKING (Optional)                   │
+│                   NEURAL RE-RANKING (Optional)                  │
 │         Cross-Encoder (ms-marco-MiniLM-L-6-v2)                  │
 │         Query-Document Pair Scoring → Final Ranking             │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    RESPONSE GENERATION                           │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Context Assembly → LLM (Optional) → Final Answer        │  │
-│  │  • Top-K documents         • Google Gemini               │  │
-│  │  • Source attribution      • Or raw context              │  │
-│  │  • Score transparency      • Threshold filtering         │  │
-│  └──────────────────────────────────────────────────────────┘  │
+│                    RESPONSE GENERATION                          │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  Context Assembly → LLM (Optional) → Final Answer        │   │
+│  │  • Top-K documents         • Google Gemini               │   │
+│  │  • Source attribution      • Or raw context              │   │
+│  │  • Score transparency      • Threshold filtering         │   │
+│  └──────────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
